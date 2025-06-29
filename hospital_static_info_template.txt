@@ -1,0 +1,88 @@
+# Hospital Static Information Template
+# Please enter one hospital per block, using the following format:
+# name: Hospital Name
+# address: Full Address
+# telephone: Phone Number
+# fax: Fax Number (optional)
+#
+# Example:
+# name: Queen Mary Hospital
+# address: 102 Pok Fu Lam Road, Hong Kong
+# telephone: 2255 3838
+# fax: 2817 1354
+#
+# ---
+
+name: Alice Ho Miu Ling Nethersole Hospital
+address: 11 Chuen On Road, Tai Po, NT
+telephone: 2689 2000
+
+name: Caritas Medical Centre
+address: 111 Wing Hong Street, Sham Shui Po, KLN
+telephone: 3408 7911
+
+name: Kwong Wah Hospital
+address: 25 Waterloo Road, KLN
+telephone: 2332 2311
+
+name: North District Hospital
+address: 9 Po Kin Road, Sheung Shui, New Territories
+telephone: 2683 8888
+
+name: North Lantau Hospital
+address: 1/F, 8 Chung Yan Road, Tung Chung, Lantau, N.T.
+telephone: 3467 7000
+
+name: Pamela Youde Nethersole Eastern Hospital
+address: 3 Lok Man Road, Chai Wan, HK
+telephone: 2595 6111
+
+name: Pok Oi Hospital
+address: Au Tau, Yuen Long, NT
+telephone: 2486 8000
+
+name: Prince of Wales Hospital
+address: 30-32 Ngan Shing Street, Shatin, NT
+telephone: 3505 2211
+
+name: Princess Margaret Hospital
+address: 2-10 Princess Margaret Hospital Road, Lai Chi Kok, Kowloon
+telephone: 2990 1111
+
+name: Queen Elizabeth Hospital
+address: 30 Gascoigne Road, KLN
+telephone: 3506 8888
+
+name: Queen Mary Hospital
+address: 102 Pokfulam Road, HK
+telephone: 2255 3838
+
+name: Ruttonjee Hospital
+address: 266 Queen's Road East, Wan Chai, HK
+telephone: 2291 2000
+
+name: St. John Hospital
+address: Cheung Chau Hospital Road, Tung Wan, Cheung Chau.
+telephone: 2986 2100
+
+name: Tin Shui Wai Hospital
+address: 11 Tin Tan Street, Tin Shui Wai, New Territories
+telephone: 3513 5000
+
+name: Tseung Kwan O Hospital
+address: No. 2 Po Ning Lane, Hang Hau, Tseung Kwan O
+telephone: 2208 0111
+
+name: Tuen Mun Hospital
+address: 23 Tsing Chung Koon Road, Tuen Mun, NT
+telephone: 2468 5111
+
+name: United Christian Hospital
+address: 130 Hip Wo Street, Kwun Tong, KLN
+telephone: 3949 4000
+
+name: Yan Chai Hospital
+address: 7-11 Yan Chai Street, Tsuen Wan, NT
+telephone: 2417 8383
+
+# Copy and paste the above block for each hospital. Save and update this file as needed. 
