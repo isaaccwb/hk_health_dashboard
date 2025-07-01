@@ -12,7 +12,7 @@ import datetime
 from geopy.geocoders import Nominatim
 import time
 
-# Try to import polyline, fallback if not available
+# Try to import polyline
 try:
     import polyline
     POLYLINE_AVAILABLE = True
@@ -170,21 +170,45 @@ class TrafficRouteCollector:
         }
         
     def geocode_location(self, location_name):
-        """Convert location name to coordinates using Mapbox Geocoding API, fallback to Nominatim"""
+        """Convert location name to coordinates using Mapbox Geocoding API, fallback to Nominatim
+        Enhanced: Prefer exact (case-insensitive) match for ambiguous locations like 'chai wan' vs 'wan chai', including context fields.
+        """
         try:
             # Try Mapbox Geocoding API first
             url = f"https://api.mapbox.com/geocoding/v5/mapbox.places/{location_name}.json"
             params = {
                 'access_token': self.mapbox_token,
                 'country': 'HK',
-                'limit': 1
+                'limit': 5  # Get more results to check for exact match
             }
             response = requests.get(url, params=params, timeout=10)
             if response.status_code == 200:
                 data = response.json()
-                if data.get('features'):
-                    coordinates = data['features'][0]['geometry']['coordinates']
-                    return [coordinates[1], coordinates[0]]  # [lat, lon]
+                features = data.get('features', [])
+                if features:
+                    location_name_lower = location_name.strip().lower()
+                    # 1. Check for exact match in 'text' or 'place_name'
+                    for feature in features:
+                        if (
+                            feature.get('text', '').strip().lower() == location_name_lower or
+                            feature.get('place_name', '').strip().lower() == location_name_lower
+                        ):
+                            coordinates = feature['geometry']['coordinates']
+                            return [coordinates[1], coordinates[0]]
+                    # 2. Check for exact match in any context field
+                    for feature in features:
+                        for ctx in feature.get('context', []):
+                            if ctx.get('text', '').strip().lower() == location_name_lower:
+                                coordinates = feature['geometry']['coordinates']
+                                return [coordinates[1], coordinates[0]]
+                    # 3. Check for startswith in 'place_name' (less strict)
+                    for feature in features:
+                        if feature.get('place_name', '').strip().lower().startswith(location_name_lower):
+                            coordinates = feature['geometry']['coordinates']
+                            return [coordinates[1], coordinates[0]]
+                    # 4. Fallback: use the first result
+                    coordinates = features[0]['geometry']['coordinates']
+                    return [coordinates[1], coordinates[0]]
             # Fallback to Nominatim if Mapbox fails
             location_query = f"{location_name}, Hong Kong"
             location = self.geocoder.geocode(location_query, timeout=10)
@@ -262,7 +286,7 @@ class TrafficRouteCollector:
                 else:
                     return "jammed", "🔴", "Severe congestion, consider alternatives"
             
-            # Fallback: Use duration comparison if speed data not available
+            
             # Mapbox provides duration with and without traffic
             duration_no_traffic = annotations.get('duration', [duration_with_traffic])
             if isinstance(duration_no_traffic, list):
@@ -358,7 +382,7 @@ class TrafficRouteCollector:
                     'emergency_priority': False,
                     'last_updated': None
                 }
-            # Fallback to mock if Mapbox fails
+            
             route_data = self.get_route_info(user_location, hospital_name)
             traffic_data = self.get_traffic_conditions()
             # Find the fastest route (Emergency Route has priority)
@@ -484,7 +508,7 @@ class TrafficRouteCollector:
                 }
             ]
             
-            # Randomly select 0-3 incidents
+            
             num_incidents = random.randint(0, 3)
             incidents = random.sample(possible_incidents, min(num_incidents, len(possible_incidents)))
             

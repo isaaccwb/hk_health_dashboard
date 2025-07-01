@@ -27,12 +27,7 @@ def inject_sidebar_style():
     st.markdown(
         """
         <style>
-        /* Change sidebar background color */
-        section[data-testid="stSidebar"] {
-            background-color: #e6f0fa !important;
-        }
-        /* Bold sidebar expander labels */
-        .stSidebar .st-expander > summary {
+        section[data-testid="stSidebar"] .st-expander > summary {
             font-weight: bold !important;
         }
         </style>
@@ -626,7 +621,16 @@ def create_route_planning_map(df, selected_hospital=None):
     
     st.markdown(f"### 🚗 Route Planning to {selected_hospital}")
     
-    # User location input
+    st.markdown(
+        """
+        <div style='background-color:#fff3cd; border-left:6px solid #ffe066; padding:10px; border-radius:6px; margin-bottom:8px;'>
+        <b>📢 Tip:</b> Please input the <b>exact address, street name, building, or estate name</b> to search.<br>
+        This helps avoid incorrect start points due to similar place names.
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
     user_location = st.text_input(
         "📍 Your Current Location:",
         placeholder="e.g., Central, Tsim Sha Tsui, Causeway Bay",
@@ -855,10 +859,6 @@ def display_hospital_info_section(selected_hospital=None):
         value=st.session_state['hospital_search'],
         placeholder="e.g., Queen Mary Hospital, Chai Wan, or 102 Pok Fu Lam Road"
     )
-
-    if search and selected_hospital:
-        st.session_state['selected_hospital'] = None
-        selected_hospital = None
 
     # Improved search logic
     def improved_fuzzy_match(hospital, search_term):
