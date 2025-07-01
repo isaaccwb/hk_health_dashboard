@@ -121,8 +121,6 @@ If you have any issues, see the Troubleshooting section below or contact the pro
 - **Maps**: Mapbox 
 - **Static Hospital Info**: https://www.ha.org.hk/visitor/ha_visitor_index.asp?Content_ID=200246&lang=ENG
 
-## Configuration
-
 
 ## Troubleshooting
 

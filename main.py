@@ -44,10 +44,7 @@ def main():
     display_sidebar_info()
     display_sidebar_about_me()
     render_ae_dashboard()
-    # After hospital selection logic:
-    # st.session_state['selected_hospital'] = selected_hospital_name
-    # Replace the old A&E tips/insights section with the new hospital info section
-    # create_emergency_insights()  # This is now handled within render_ae_dashboard()
+    
 
 def create_hospital_ranking_view(df):
     """Create hospital ranking chart view"""
